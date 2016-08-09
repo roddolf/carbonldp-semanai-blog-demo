@@ -1,0 +1,9 @@
+# NodeJS
+node_modules/
+npm-debug.log
+
+# JSPM
+jspm_packages/
+
+# Jetbrains IDEs
+.idea/
