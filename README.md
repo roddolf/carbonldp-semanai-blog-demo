@@ -11,15 +11,18 @@ This boilerplate uses [jspm](http://jspm.io/) as a browser dependency manager, c
 1. Install dependencies
     1. Install [node.js](https://nodejs.org/en/) (we recommend installing the "Current" version)
     2. Install [jspm](http://jspm.io/) by executing the following command:
+    
         ```bash
         npm install jspm@beta -g
         ```
         You may need to run it with admin privileges
     3. Install the project's dependencies by running the following command:
+    
         ```bash
         npm install && jspm install
         ```
 2. Run the application with the following command:
+
     ```bash
     npm start
     ```
