@@ -2,7 +2,17 @@
   "name": "carbon-js-es2015-boilerplate",
   "version": "1.0.0",
   "description": "Boilerplate that shows how to setup a JavaScript ES2015 application with Carbon LDP SDK",
-  "main": "index.js",
+  "contributors": [
+    {
+      "name": "Miguel Aragón",
+      "email": "miguel.aragon@base22.com"
+    },
+    {
+      "name": "Alvaro Contreras",
+      "email": "alvaro.contreras@base22.com"
+    }
+  ],
+  "main": "src/app.js",
   "scripts": {
     "build": "npm run clean:dist && webpack --config webpack.prod.js --profile",
     "clean:dist": "rm -rf dist/*",
@@ -21,13 +31,12 @@
   "homepage": "https://github.com/CarbonLDP/carbon-js-es2015-boilerplate#readme",
   "dependencies": {
     "core-js": "^2.4.1",
-    "webpack-dev-server": "^2.9.1",
-    "carbonldp": "1.0.0-alpha.3"
+    "carbonldp": "1.0.0-alpha.5"
   },
   "devDependencies": {
-    "@types/node": "^8.0.31",
+    "@types/node": "^8.0.44",
     "copy-webpack-plugin": "^4.0.1",
-    "file-loader": "^0.11.2",
+    "file-loader": "^1.1.5",
     "html-loader": "^0.5.0",
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.3",
@@ -35,6 +44,7 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.1",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
-    "webpack": "^3.6.0"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.1"
   }
 }
