@@ -9,17 +9,25 @@ This boilerplate uses [Webpack](https://webpack.js.org) as a module loader which
 
 ### Install dependencies
 1. Install [node.js](https://nodejs.org/en/) (we recommend installing the "Current" version)
-2. Install the project's dependencies by running the following command:
+2. cd into the project's folder:
+
+    ```bash
+    cd ~/your/path/carbonldp-js-es2015-boilerplate/
+    ```
+3. Install the project's dependencies by running the following command:
 
     ```bash
     npm install
     ```
-3. Run the application with the following command:
+4. Run the application with the following command:
 
     ```bash
     npm start
     ```
 This will run a `webpack-dev-server` instance that will serve the project's files.
+
+And that's it, you're ready to use the Carbon SDK.
+
 
 ### NPM Scripts
 
