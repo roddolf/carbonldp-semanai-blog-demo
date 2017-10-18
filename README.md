@@ -19,7 +19,7 @@ This boilerplate uses [Webpack](https://webpack.js.org) as a module loader which
     ```bash
     npm start
     ```
-This will run a `webpack-dev-server` instance that will server the project's files.
+This will run a `webpack-dev-server` instance that will serve the project's files.
 
 ### NPM Scripts
 
