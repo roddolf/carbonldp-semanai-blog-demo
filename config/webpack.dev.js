@@ -15,6 +15,8 @@ module.exports = webpackMerge( commonConfig, {
 		chunkFilename    : "[id].chunk.js"			// Determines the name of non-entry chunk files
 	},
 
+	watch: false,
+
 	devServer: {
 		open              : true,	// Opens web browser
 		port              : 8000,	// Port of project
@@ -23,6 +25,9 @@ module.exports = webpackMerge( commonConfig, {
 		watchOptions      : {
 			aggregateTimeout: 300,	// Add a delay in milliseconds before rebuilding
 			poll            : 1000	// Check for changes every second
-		}
+		},
+
+		hot: false,
+		inline: false
 	}
 } );

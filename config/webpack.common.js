@@ -37,7 +37,7 @@ module.exports = {
 			},
 			{
 				test: /\.s?css$/,
-				use : [ "raw-loader", "sass-loader" ]				// Loaders for style files .css/.scss
+				use : [ "style-loader", "css-loader" ]				// Loaders for style files .css/.scss
 			}
 		]
 	},
