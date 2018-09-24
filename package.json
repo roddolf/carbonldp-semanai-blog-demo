@@ -1,17 +1,11 @@
 {
-  "name": "carbon-js-es2015-boilerplate",
+  "name": "carbonldp-semanai-blog-demo",
   "version": "1.0.0",
-  "description": "Boilerplate that shows how to setup a JavaScript ES2015 application with Carbon LDP SDK",
-  "contributors": [
-    {
-      "name": "Miguel Aragón",
-      "email": "miguel.aragon@base22.com"
-    },
-    {
-      "name": "Alvaro Contreras",
-      "email": "alvaro.contreras@base22.com"
-    }
-  ],
+  "description": "Semana i - Blog demo",
+  "author": {
+    "name": "Rodolfo Aguirre",
+    "email": "rodolfo.aguirre@base22.com"
+  },
   "main": "src/app.js",
   "scripts": {
     "build": "npm run clean:dist && webpack --config ./config/webpack.prod.js --profile",
@@ -23,7 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/CarbonLDP/carbon-js-es2015-boilerplate.git"
   },
-  "author": "",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/CarbonLDP/carbon-js-es2015-boilerplate/issues"
