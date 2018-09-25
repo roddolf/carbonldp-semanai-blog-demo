@@ -1,10 +1,15 @@
 import { CarbonLDP } from "carbonldp";
+import { AccessPoint } from "carbonldp/AccessPoint"
 
 import "./styles.css";
 
 console.log( CarbonLDP.version );
 
 const carbonldp = new CarbonLDP( "http://localhost:8083" );
+carbonldp.extendObjectSchema( {
+    "tags": { "@container": "@set" }
+} );
+
 
 carbonldp.documents;
     // .$get // Obtener un documento
@@ -75,19 +80,45 @@ carbonldp.documents;
 //         console.log( documents );
 //     } );
 
-carbonldp.documents
-    // .$listChildren(); // Retorna los hijos vacíos
-    .$getChildren( "posts/" ) // Los hijos resueltos
-    .then( function( posts ) {
-        console.log( posts );
-        for( const post of posts ) {
+function getAllTags() {
+    return carbonldp.documents
+        .$getChildren( "tags/" );
+}
+
+let postsDocuments;
+function getAllPosts() {
+    return carbonldp.documents
+        .$getChildren( "posts/" )
+        .then( function( posts ) {
+            postsDocuments = posts;
+            console.log( posts );
+        } );
+}
+
+Promise.all( [
+    getAllTags(),
+    getAllPosts(),
+] )
+    .then( function() {
+        postsDocuments.forEach( function( post ) {
             renderPost( post );
-        }
-    } );
+        } );
+        // for( const post of postsDocuments ) {
+        //     renderPost( post );
+        // }
+    } )
 
 
 function renderPost( post ) {
     const container = document.querySelector( "#posts" );
+
+    let tags = "";
+    if( post.tags ) {
+        // <label class="tag">Tag1</label>
+        for( const tag of post.tags ) {
+            tags += `<label class="tag">${ tag.name }</label>`
+        }
+    }
 
     container.innerHTML += `
     <div class="post">
@@ -97,6 +128,37 @@ function renderPost( post ) {
         </div>
 
         <p class="content">${ post.content }</p>
+
+        <div class="tags">
+            ${ tags }
+        </div>
     </div>
     `;
 }
+
+
+// carbonldp.documents
+//     .$create( "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/", AccessPoint.create( {
+//         hasMemberRelation: "tags",
+//         isMemberOfRelation: "posts"
+//     } ), "tags/" )
+//     .then( function ( document ) {
+//         console.log( document );
+//         console.log( "AccessPoint created!" );
+//     } );
+
+// carbonldp.documents
+//     .$get( "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/" )
+//     .then( function ( postDocument ) {
+//         // postDocument.$addMember(s)
+//         // postDocument.$removeMember(s)
+//         return postDocument
+//             .$addMembers( "tags/", [ "http://localhost:8083/tags/juegosolimpicos/" ] );
+//     } )
+//     .then( function() {
+//         console.log( "Tags added!" );
+//     } );
+
+
+
+
