@@ -6,12 +6,45 @@ import "./styles.css";
 console.log( CarbonLDP.version );
 
 const carbonldp = new CarbonLDP( "http://localhost:8083" );
-carbonldp.extendObjectSchema( {
-    "tags": { "@container": "@set" }
+carbonldp.extendObjectSchema( "Post", {
+    "tags": {
+        "@id": "https://schema.org/tags",
+        "@container": "@set",
+        "@type": "@id",
+     },
+     "title": {
+        //  "@id": "title",
+        "@type": "string",
+     },
+     "content": {
+         "@type": "string",
+     },
+     "published": {
+         "@id": "publishDate",
+         "@type": "dateTime",
+     },
 } );
+carbonldp.extendObjectSchema( {
+    "name": {
+        "@type": "string",
+     },
+} );
+
+// - "@type"
+//     - "@id" // Referencia a recursos
+//     - "string"
+//     - "int" / "integer" / "long"
+//     - "boolean"
+//     - "float" / "double"
+//     - "date" / "time" / "dateTime"
+
+// - "@container"
+//     - "@set" // Arreglo (sin orden)
+//     - "@list" // Arreglo (con orden)
 
 
 carbonldp.documents;
+console.log( carbonldp.documents );
     // .$get // Obtener un documento
     // .$create // Crear un documento
     // .$createAndRetrieve 
@@ -66,6 +99,7 @@ carbonldp.documents;
 // carbonldp.documents
 //     .$create( "posts/", [
 //         {
+//             types: [ "Post" ]
 //             title: "Post - 1",
 //             content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum alias est explicabo, qui repellendus praesentium perferendis rerum fugit eum voluptas doloremque quis harum accusantium deleniti temporibus suscipit provident possimus. Reiciendis!",
 //             publishDate: new Date(),
@@ -102,6 +136,11 @@ Promise.all( [
     .then( function() {
         postsDocuments.forEach( function( post ) {
             renderPost( post );
+            
+            // post.types.push( "Post" );
+            // post.$addType( "Post" )
+            // post.$removeType( "Post" )
+            // post.$save();
         } );
         // for( const post of postsDocuments ) {
         //     renderPost( post );
@@ -124,7 +163,7 @@ function renderPost( post ) {
     <div class="post">
         <h2 class="title">${ post.title }</h2>
         <div class="subTitle">
-            <label class="publishDate">${ post.publishDate }</label>
+            <label class="publishDate">${ post.published }</label>
         </div>
 
         <p class="content">${ post.content }</p>
@@ -138,10 +177,37 @@ function renderPost( post ) {
 
 
 // carbonldp.documents
-//     .$create( "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/", AccessPoint.create( {
+//     .$create( "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/",
+//      AccessPoint.create( {
 //         hasMemberRelation: "tags",
 //         isMemberOfRelation: "posts"
 //     } ), "tags/" )
+//     .then( function ( document ) {
+//         console.log( document );
+//         console.log( "AccessPoint created!" );
+//     } );
+
+
+// carbonldp.documents
+//     .$create(
+//         "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/",
+//         AccessPoint.create( {
+//             hasMemberRelation: "https://schema.org/tags",
+//             isMemberOfRelation: "posts"
+//         } ),
+//         "tags/"
+//     )
+//     .then( function ( document ) {
+//         console.log( document );
+//         console.log( "AccessPoint created!" );
+//     } );
+
+// carbonldp.documents
+//     .$create( "posts/c2fada9d-3af0-4a1b-9a48-5fb731ea0398/", {
+//         types: [ "https://carbonldp.com/ns/v1/platform#AccessPoint" ],
+//         hasMemberRelation: "comments",
+//         isMemberOfRelation: "posts"
+//     }, "comments/" )
 //     .then( function ( document ) {
 //         console.log( document );
 //         console.log( "AccessPoint created!" );
@@ -153,7 +219,7 @@ function renderPost( post ) {
 //         // postDocument.$addMember(s)
 //         // postDocument.$removeMember(s)
 //         return postDocument
-//             .$addMembers( "tags/", [ "http://localhost:8083/tags/juegosolimpicos/" ] );
+//             .$addMembers( "tags/", [ "http://localhost:8083/tags/comida/" ] );
 //     } )
 //     .then( function() {
 //         console.log( "Tags added!" );
