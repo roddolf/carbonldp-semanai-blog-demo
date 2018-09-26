@@ -293,7 +293,7 @@ carbonldp.documents
     .$onDocumentDeleted( "posts/**", onDocumentDeletedMessageEvent )
 
 carbonldp.documents
-    .$offDocumentDeleted( "posts/**", onDocumentDeletedMessageEvent )
+    .$off( Event.DOCUMENT_DELETED, "posts/**", onDocumentDeletedMessageEvent )
 
 
 
