@@ -1,5 +1,7 @@
 import { CarbonLDP } from "carbonldp";
-import { AccessPoint } from "carbonldp/AccessPoint"
+import { AccessPoint } from "carbonldp/AccessPoint";
+import { Event } from "carbonldp/Messaging/Event";
+
 
 import "./styles.css";
 
@@ -264,6 +266,34 @@ function renderPost( post ) {
 //         console.log( "Tags added!" );
 //     } );
 
+
+// Real time
+// import { Event } from "carbonldp/Messaging/Event";
+
+carbonldp.documents
+    .$on( Event.DOCUMENT_DELETED, "posts/**", function ( message ) {
+        console.log( message );
+    }, function ( error ) {
+        console.log( error );
+    } );
+
+carbonldp.documents
+    .$onDocumentDeleted( "posts/**", function ( message ) {
+        console.log( message );
+    }, function ( error ) {
+        console.log( error );
+    } );
+
+
+function onDocumentDeletedMessageEvent( message ) {
+    console.log( message );
+}
+
+carbonldp.documents
+    .$onDocumentDeleted( "posts/**", onDocumentDeletedMessageEvent )
+
+carbonldp.documents
+    .$offDocumentDeleted( "posts/**", onDocumentDeletedMessageEvent )
 
 
 
