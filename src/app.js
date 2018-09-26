@@ -129,23 +129,62 @@ function getAllPosts() {
         } );
 }
 
-Promise.all( [
-    getAllTags(),
-    getAllPosts(),
-] )
-    .then( function() {
-        postsDocuments.forEach( function( post ) {
-            renderPost( post );
+// Promise.all( [
+//     getAllTags(),
+//     getAllPosts(),
+// ] )
+//     .then( function() {
+//         postsDocuments.forEach( function( post ) {
+//             renderPost( post );
             
-            // post.types.push( "Post" );
-            // post.$addType( "Post" )
-            // post.$removeType( "Post" )
-            // post.$save();
-        } );
-        // for( const post of postsDocuments ) {
-        //     renderPost( post );
-        // }
+//             // post.types.push( "Post" );
+//             // post.$addType( "Post" )
+//             // post.$removeType( "Post" )
+//             // post.$save();
+//         } );
+//         // for( const post of postsDocuments ) {
+//         //     renderPost( post );
+//         // }
+//     } )
+
+carbonldp.documents
+    // .$getMembers( "posts/", function( builder ) {
+    .$getChildren( "posts/", function( builder ) {
+        // builder.withType( "Post" );
+        // builder.properties( { /* ... */ } );
+        // return builder;
+
+        return builder
+            .withType( "Post" )
+            .properties( {
+                title: builder.inherit,
+                content: builder.inherit,
+                published: builder.inherit,
+                tags: {
+                    query: function( builderTags ) {
+                        return builderTags
+                            .properties( {
+                                name: {
+                                    query: function( builderName ) {
+                                        return builderName
+                                            .values( builderName.value( "Comida" ), builderName.value( "Juegos Olimpicos" ) );
+                                    }
+                                },
+                            } );
+                    }
+                },
+            } )
+            .orderBy( "title", "DESC" )
+            .offset( 0 )
+            .limit( 10 )
+            ;
     } )
+    .then( function( posts ) {
+        for( const post of posts ) {
+            console.log( post );
+            renderPost( post );
+        }
+    } );
 
 
 function renderPost( post ) {
